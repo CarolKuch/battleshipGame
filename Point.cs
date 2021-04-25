@@ -8,12 +8,15 @@ namespace ConsoleApp1
     {
         public int coordinateX;
         public int coordinateY;
-        private bool isAvailable;
-        private bool isFilled;
-        private bool wasShot;
+        public bool isAvailable;
+        public bool isFilled;
+        public bool wasShot;
+       
 
-        public Point()
+        public Point(int X, int Y)
         {
+            coordinateX = X;
+            coordinateY = Y;
             isAvailable = true;
             isFilled = false;
             wasShot = false;
@@ -24,14 +27,14 @@ namespace ConsoleApp1
             wasShot = true;
         }
 
-        public void setIsFilled(int x, int y)
+        public void setIsFilled(bool isItFilled)
         {
-            isAvailable = true;
+           isFilled = isItFilled;
         }
 
-        public void setIsAvailable(int x, int y)
+        public void setIsAvailable(bool isItAvailable)
         {
-            isAvailable = false;
+            isAvailable = isItAvailable;
         }
 
     }

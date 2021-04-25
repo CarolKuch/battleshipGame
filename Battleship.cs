@@ -8,13 +8,12 @@ namespace ConsoleApp1
     {
         public int length;
         public string ownerName;
-        private Point[] myLocation;
+        private Point myLocation;
         private bool isDestroyed = false;
-
+        public Point[] battleshipLocationPoints;
         public Battleship(int length)
         {
             this.length = length;
-            Console.WriteLine(length);
         }
         
     }

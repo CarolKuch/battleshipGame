@@ -7,7 +7,6 @@ namespace ConsoleApp1
     class Bot
     {
         private Battleship[] myBattleships;
-
         private BattleArea myBattleArea;
         public BattleArea opponentsBattleArea;
 
@@ -15,7 +14,7 @@ namespace ConsoleApp1
 
         public void prepareToBattle() {
             createBattleships();
-            Console.WriteLine("Prepared!");
+            Console.WriteLine("Długość: " + myBattleships.Length);
             deployBattleshipsToBattleArea(myBattleships);
         }
 
@@ -34,28 +33,33 @@ namespace ConsoleApp1
                 }
             }
             myBattleships = ships;
+            Console.WriteLine("Długość: " + myBattleships.Length);
         }
 
         private void deployBattleshipsToBattleArea (Battleship [] battleships)
         {
-            BattleArea battlearea = new BattleArea();
-            battlearea.CreateNewBattleArea();
-            battlearea.ShowOceanMap();
-            battlearea.DrawRandomSpot();
+            myBattleArea = new BattleArea();
+            myBattleArea.CreateNewBattleArea();
+            myBattleArea.ShowOceanMap();
+            for(int i = battleships.Length-1; i > 4; i--)
+            {
+                Console.WriteLine("Długość okrętu wynosi" + battleships[i].length);
+                battleships[i].battleshipLocationPoints = myBattleArea.DrawRandomSpot(battleships[i]);
+                myBattleArea.ShowOceanMap();
+            }
+
+            
+            myBattleArea.ShowOceanMap();
         }
 
-        private void randomShot()
+        public void randomShot()
         {
             Random x = new Random();
             Random y = new Random();
             int A = x.Next(1, 10);
             int B = y.Next(1, 10);
-            checkHit(A, B);
-        }
-
-        private bool checkHit(int A, int B)
-        {
-            return false;
+            myBattleArea.ShowOceanMap();
+            myBattleArea.checkHit(A, B);
         }
 
         private void loseTheBattle()
