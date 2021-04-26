@@ -197,6 +197,10 @@ namespace ConsoleApp1
                 {
                     return coordinate = 1;
                 }
+                else
+                {
+                    return coordinate = 11 - battleshipLength;
+                }
             }
             Random random = new Random();
             coordinate = random.Next(1, 12 - battleshipLength);
