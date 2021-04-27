@@ -15,24 +15,39 @@ namespace ConsoleApp1
             }
 
             StartTheBattle(botsInGame);
-
+            EndTheBattle(botsInGame);
             Console.ReadLine();
         }
 
         static void StartTheBattle(Bot[] botsInGame)
         {
-            //int a = 10;
-            //do
-            //{
-            //    botsInGame[0].randomShot();
-            //    botsInGame[1].randomShot();
-            //    a--;
-            //} while (a>0);
+            int a = 10;
+            do
+            {
+                Console.WriteLine("Wciśnij dowolny przycisk, aby rozpocząć rundę!");
+                Console.ReadKey();
+                Console.WriteLine();
+                botsInGame[1].myBattleArea.checkHit(botsInGame[0].randomShot());
+                botsInGame[0].myBattleArea.checkHit(botsInGame[1].randomShot());
+                a--;
+                botsInGame[0].myBattleArea.ShowOceanMap();
+                botsInGame[1].myBattleArea.ShowOceanMap();
+            } while ( !( botsInGame[0].loseTheBattle() || botsInGame[1].loseTheBattle() ) );
         }
 
-        static void EndTheBattle()
+        static void EndTheBattle(Bot[] botsInGame)
         {
-            Console.WriteLine("ended!");
+            if(botsInGame[0].loseTheBattle() && !botsInGame[1].loseTheBattle())
+            {
+                Console.WriteLine("Wygrał pierwszy bot");
+            }else if (!botsInGame[0].loseTheBattle() && botsInGame[1].loseTheBattle())
+            {
+                Console.WriteLine("Wygrał drugi bot");
+            }
+            else
+            {
+                Console.WriteLine("Mamy remis!");
+            }
         }
 
     }

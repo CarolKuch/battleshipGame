@@ -9,6 +9,7 @@ namespace ConsoleApp1
     class BattleArea
     {
         public Point[] pointsInBattleArea;
+        public int destroyedPointsCounter = 0;
 
         public void CreateNewBattleArea()
         {
@@ -21,30 +22,26 @@ namespace ConsoleApp1
                     myPoints[myPointsCounter] = new Point(coordinateX, coordinateY);
                     myPointsCounter++;
                 }
-
             }
             pointsInBattleArea = myPoints;
         }
 
         public void ShowOceanMap()
         {
-            for( int i = 0; i < pointsInBattleArea.Length; i++)
+            for ( int i = 0; i < pointsInBattleArea.Length; i++)
             {
-                //if (!points[i].wasShot) 
-                //{
-                //    Console.Write(" ~ ");
-                //}
-                if (pointsInBattleArea[i].isFilled)
+
+                if (!pointsInBattleArea[i].wasShot)
+                {
+                    Console.Write(" ~ ");
+                }
+                else if (pointsInBattleArea[i].isFilled)
                 {
                     Console.Write(" X ");
                 }
-                else if (!pointsInBattleArea[i].isAvailable)
-                {
-                    Console.Write(" B ");
-                }
                 else if (!pointsInBattleArea[i].isFilled)
                 {
-                    Console.Write("   ");
+                    Console.Write(" O ");
                 }
 
                 if ((i+1)%10 == 0 && i != 0)
@@ -52,7 +49,7 @@ namespace ConsoleApp1
                     Console.WriteLine();
                 }
             }
-
+            Console.WriteLine();
         }
 
         public Point [] DrawRandomSpot(Battleship battleship) //losuj gdzie umieścić statek
@@ -169,7 +166,7 @@ namespace ConsoleApp1
                     }
 
                     if(!arePointsAvailable(coordinatesX[i], coordinatesY[i]))
-                    {Console.WriteLine("Losuję ponownie!");
+                    {
                         shouldDrawAgain++;
                         break;
                     }
@@ -182,7 +179,7 @@ namespace ConsoleApp1
                 randomPoints[i] = new Point(coordinatesX[i], coordinatesY[i]);
                 pointsInBattleArea[coordinatesY[i] + coordinatesX[i] * 10 - 11].setIsAvailable(false);
                 pointsInBattleArea[coordinatesY[i] + coordinatesX[i] * 10 - 11].setIsFilled(true);
-                Console.WriteLine(randomPoints[i].coordinateX +" " + randomPoints[i].coordinateY);
+
             }
             return randomPoints;
        }
@@ -213,9 +210,27 @@ namespace ConsoleApp1
             else return false;
         }
 
-        public bool checkHit(int coordinateX, int coordinateY)
+        public int setDestroyedCounter(int counter)
         {
-            return true;
+            int updatedCounter = counter + 1;
+            return updatedCounter;
+        }
+
+        public bool checkHit(Point point)
+        {
+            foreach(Point p in pointsInBattleArea)
+            {
+                if (p.coordinateX == point.coordinateX && p.coordinateY == point.coordinateY)
+                {
+                    pointsInBattleArea[point.coordinateY + point.coordinateX * 10 - 11].setIsShot(point.coordinateX, point.coordinateY);
+                    if(pointsInBattleArea[point.coordinateY + point.coordinateX * 10 - 11].isFilled)
+                    {
+                        destroyedPointsCounter = setDestroyedCounter(destroyedPointsCounter);
+                    }
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

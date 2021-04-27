@@ -7,18 +7,15 @@ namespace ConsoleApp1
     class Bot
     {
         private Battleship[] myBattleships = new Battleship[15];
-        private BattleArea myBattleArea;
+        public BattleArea myBattleArea;
         public BattleArea opponentsBattleArea;
+
 
         public int shotsCounter = 0;
 
         public void prepareToBattle() {
             createBattleships();
             deployBattleshipsToBattleArea(myBattleships);
-            for (int i = 0; i < myBattleships.Length; i++)
-            {
-                //Console.WriteLine(myBattleships[i].battleshipLocationPoints[0].coordinateY+"TO JEST Y");
-            }
         }
 
         private void createBattleships()
@@ -41,31 +38,27 @@ namespace ConsoleApp1
         {
             myBattleArea = new BattleArea();
             myBattleArea.CreateNewBattleArea();
-            myBattleArea.ShowOceanMap();
             for(int i = battleships.Length-1; i > 4; i--)
             {
-                Console.WriteLine("Długość okrętu wynosi" + battleships[i].length);
                 myBattleships[i].battleshipLocationPoints = myBattleArea.DrawRandomSpot(battleships[i]);
-                myBattleArea.ShowOceanMap();
             }
 
-            
             myBattleArea.ShowOceanMap();
         }
 
-        public void randomShot()
+        public Point randomShot()
         {
             Random x = new Random();
-            Random y = new Random();
-            int A = x.Next(1, 10);
-            int B = y.Next(1, 10);
-            myBattleArea.ShowOceanMap();
-            myBattleArea.checkHit(A, B);
+            int coordinateX = x.Next(1, 10);
+            int coordinateY = x.Next(1, 10);
+            return new Point(coordinateX, coordinateY);
         }
 
-        private void loseTheBattle()
+
+        public bool loseTheBattle()
         {
-            Console.WriteLine("Lost!");
+            if (myBattleArea.destroyedPointsCounter == 30) return true;
+            else return false;
         }
 
     }
