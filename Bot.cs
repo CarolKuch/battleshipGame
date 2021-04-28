@@ -8,8 +8,6 @@ namespace ConsoleApp1
     {
         private Battleship[] myBattleships = new Battleship[15];
         public BattleArea myBattleArea;
-        public BattleArea opponentsBattleArea;
-
 
         public int shotsCounter = 0;
 
@@ -42,7 +40,6 @@ namespace ConsoleApp1
             {
                 myBattleships[i].battleshipLocationPoints = myBattleArea.DrawRandomSpot(battleships[i]);
             }
-
             myBattleArea.ShowOceanMap();
         }
 

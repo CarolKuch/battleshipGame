@@ -30,7 +30,9 @@ namespace ConsoleApp1
                 botsInGame[1].myBattleArea.checkHit(botsInGame[0].randomShot());
                 botsInGame[0].myBattleArea.checkHit(botsInGame[1].randomShot());
                 a--;
+                Console.WriteLine("Wciśnij dowolny przycisk, aby rozpocząć rundę!");
                 botsInGame[0].myBattleArea.ShowOceanMap();
+                Console.WriteLine("Wciśnij dowolny przycisk, aby rozpocząć rundę!");
                 botsInGame[1].myBattleArea.ShowOceanMap();
             } while ( !( botsInGame[0].loseTheBattle() || botsInGame[1].loseTheBattle() ) );
         }

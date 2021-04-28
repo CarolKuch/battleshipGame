@@ -12,7 +12,6 @@ namespace ConsoleApp1
         public bool isFilled;
         public bool wasShot;
        
-
         public Point(int X, int Y)
         {
             coordinateX = X;
